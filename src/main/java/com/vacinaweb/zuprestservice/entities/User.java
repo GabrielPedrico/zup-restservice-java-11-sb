@@ -1,32 +1,43 @@
 package com.vacinaweb.zuprestservice.entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "tb_user")
 public class User implements Serializable {
-	private static final long serialVersionUID = 2820143017908103895L;
+	private static final long serialVersionUID = -2929074186530823433L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String email;
-	private Cpf cpf;
-	private Date birthDate;
+	private String cpf;
+	private Boolean vaccineStatus;
 	
-	public User(){
+	@OneToMany(mappedBy = "patient")
+	private List<Vaccine> vaccines = new ArrayList<>();
+	
+	public User() {
 	}
 
-
-
-	public User(Long id, String name, String email, Cpf cpf, Date birthDate) {
+	public User(Long id, String name, String email, String cpf, Boolean vaccineStatus) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.cpf = cpf;
-		this.birthDate = birthDate;
+		this.vaccineStatus = vaccineStatus;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -52,20 +63,20 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public Cpf getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(Cpf cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
-	public Date getBirthDate() {
-		return birthDate;
+	public Boolean getVaccineStatus() {
+		return vaccineStatus;
 	}
 
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
+	public void setVaccineStatus(Boolean vaccineStatus) {
+		this.vaccineStatus = vaccineStatus;
 	}
 
 	@Override
@@ -93,11 +104,9 @@ public class User implements Serializable {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "User [name=" + name + ", email=" + email + ", cpf=" + cpf + ", birthDate=" + birthDate + "]";
+	public List<Vaccine> getVaccines() {
+		return vaccines;
 	}
 	
 	
-
 }
