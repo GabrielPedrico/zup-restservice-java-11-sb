@@ -29,6 +29,10 @@ public class Vaccine implements Serializable{
 	
 	private Integer vaccineStatus;
 	
+	private String patientName;
+	
+	private String patientEmail;
+	
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "patient_id")
@@ -43,7 +47,10 @@ public class Vaccine implements Serializable{
 		this.id = id;
 		this.moment = moment;
 		setVaccineStatus(vaccineStatus);
+		this.patientName = patient.getName();
+		this.patientEmail = patient.getEmail();
 		this.patient = patient;
+		
 	}
 
 	public String getName() {
@@ -86,6 +93,22 @@ public class Vaccine implements Serializable{
 
 	public void setPatient(User patient) {
 		this.patient = patient;
+	}
+
+	public String getPatientName() {
+		return patientName;
+	}
+
+	public void setPatientName(String patientName) {
+		this.patientName = patientName;
+	}
+
+	public String getPatientEmail() {
+		return patientEmail;
+	}
+
+	public void setPatientEmail(String patientEmail) {
+		this.patientEmail = patientEmail;
 	}
 
 	@Override

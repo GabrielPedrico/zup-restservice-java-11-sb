@@ -30,7 +30,6 @@ public class VaccineResource {
 			
 			Vaccine obj = service.findById(id);
 			return ResponseEntity.ok(obj);
-			
 		}
 		
 }
