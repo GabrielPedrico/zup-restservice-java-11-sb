@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.vacinaweb.zuprestservice.entities.User;
 import com.vacinaweb.zuprestservice.entities.Vaccine;
+import com.vacinaweb.zuprestservice.enums.VaccineStatus;
 import com.vacinaweb.zuprestservice.repositories.UserRepository;
 
 @Service
@@ -32,8 +33,10 @@ public class UserService {
 		return repository.save(obj);
 	}
 	
-	public User addVaccine(Long id, User obj, Vaccine vaccine) {
+	public User addVaccine(Long id,Vaccine vaccine) {
 		User entity = repository.getOne(id);
+		vaccine.setVaccineStatus(VaccineStatus.VACCINED);
+		vaccine.setPatient(entity);
 		entity.addVaccine(vaccine);
 		return repository.save(entity);
 	}

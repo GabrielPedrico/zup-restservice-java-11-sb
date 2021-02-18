@@ -46,9 +46,9 @@ public class UserResource {
 			return	ResponseEntity.created(uri).body(obj);
 		}
 		
-		@PutMapping(value ="{/id}")
-		public ResponseEntity<User> addVaccine(@PathVariable Long id,@RequestBody User obj,Vaccine vaccine){
-			obj = service.addVaccine(id, obj,vaccine);
-			return ResponseEntity.ok().body(obj);
+		@PutMapping(value ="/{id}")
+		public ResponseEntity<Vaccine> addVaccine(@PathVariable Long id,@RequestBody Vaccine vaccine){
+			service.addVaccine(id,vaccine);
+			return ResponseEntity.ok().body(vaccine);
 		}
 } 

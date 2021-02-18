@@ -25,4 +25,9 @@ public class VaccineService {
 		Optional<Vaccine> obj = repository.findById(id);
 		return obj.get();
 	}
+	
+	public Vaccine insert(Vaccine obj) {
+		
+		return repository.save(obj);
+	}
 }

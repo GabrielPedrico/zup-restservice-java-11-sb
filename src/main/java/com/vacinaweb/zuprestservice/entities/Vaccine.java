@@ -52,6 +52,12 @@ public class Vaccine implements Serializable{
 		this.patient = patient;
 		
 	}
+	
+	public Vaccine(String name, Long id, Instant moment) {
+		this.name = name;
+		this.id = id;
+		this.moment = moment;
+	}
 
 	public String getName() {
 		return name;

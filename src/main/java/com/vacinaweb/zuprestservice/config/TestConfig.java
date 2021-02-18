@@ -31,9 +31,9 @@ public class TestConfig implements CommandLineRunner {
 		
 		userRepository.saveAll(Arrays.asList(u1,u2));
 		
-		Vaccine v1 = new Vaccine("CoronaVac", null, Instant.now(), VaccineStatus.VACCINED,u1);
-		Vaccine v2 = new Vaccine("BCG/Tuberculose", null, Instant.now(),VaccineStatus.VACCINED, u1);
-		Vaccine v3 = new Vaccine("CoronaVac", null, Instant.now(), VaccineStatus.VACCINED,u2);
+		Vaccine v1 = new Vaccine("CoronaVac", null, Instant.now(),VaccineStatus.VACCINED,u1);
+		Vaccine v2 = new Vaccine("BCG/Tuberculose", null, Instant.now(),VaccineStatus.VACCINED,u1);
+		Vaccine v3 = new Vaccine("CoronaVac", null, Instant.now(),VaccineStatus.VACCINED,u2);
 		
 		vacinneRepository.saveAll(Arrays.asList(v1,v2,v3));
 		
