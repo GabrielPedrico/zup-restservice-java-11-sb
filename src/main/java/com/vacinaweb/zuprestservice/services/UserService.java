@@ -10,12 +10,16 @@ import com.vacinaweb.zuprestservice.entities.User;
 import com.vacinaweb.zuprestservice.entities.Vaccine;
 import com.vacinaweb.zuprestservice.enums.VaccineStatus;
 import com.vacinaweb.zuprestservice.repositories.UserRepository;
+import com.vacinaweb.zuprestservice.repositories.VaccineRepository;
 
 @Service
 public class UserService {
 	
 	@Autowired
 	private UserRepository repository;
+	
+	@Autowired
+	private VaccineRepository vaccineRepository;
 	
 	public List<User> findAll(){
 		 
@@ -34,10 +38,12 @@ public class UserService {
 	}
 	
 	public User addVaccine(Long id,Vaccine vaccine) {
-		User entity = repository.getOne(id);
+		User entity = repository.findById(id).get();
+		vaccine.setPatientEmail(entity.getEmail());
+		vaccine.setPatientName(entity.getName());
 		vaccine.setVaccineStatus(VaccineStatus.VACCINED);
 		vaccine.setPatient(entity);
-		entity.addVaccine(vaccine);
-		return repository.save(entity);
+		vaccineRepository.save(vaccine);
+		return repository.findById(id).get();
 	}
 }

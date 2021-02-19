@@ -49,6 +49,8 @@ public class UserResource {
 		@PutMapping(value ="/{id}")
 		public ResponseEntity<Vaccine> addVaccine(@PathVariable Long id,@RequestBody Vaccine vaccine){
 			service.addVaccine(id,vaccine);
-			return ResponseEntity.ok().body(vaccine);
+			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(vaccine.getId()).toUri();
+			return	ResponseEntity.created(uri).body(vaccine);
+			//return ResponseEntity.ok().body(vaccine);
 		}
 } 
