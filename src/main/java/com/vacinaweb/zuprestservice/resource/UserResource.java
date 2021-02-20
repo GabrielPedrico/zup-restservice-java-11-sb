@@ -21,36 +21,46 @@ import com.vacinaweb.zuprestservice.services.UserService;
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
-		
-		@Autowired
-		private UserService service;
-		
-		@GetMapping
-		public ResponseEntity<List<User>> findAll(){
-			List<User> list = service.findAll();
-			return ResponseEntity.ok().body(list);
-			}
-		
-		@GetMapping(value = "/{id}")
-		public ResponseEntity<User> findById(@PathVariable Long id){
-			
-			User obj = service.findById(id);
-			return ResponseEntity.ok(obj);
-			
-		}
-		
-		@PostMapping
-		public ResponseEntity<User> insert(@RequestBody User obj){
+
+	@Autowired
+	private UserService service;
+
+	@GetMapping
+	public ResponseEntity<List<User>> findAll() {
+		List<User> list = service.findAll();
+		return ResponseEntity.ok().body(list);
+	}
+
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<User> findById(@PathVariable Long id) {
+
+		User obj = service.findById(id);
+		return ResponseEntity.ok(obj);
+
+	}
+
+	@PostMapping
+	public ResponseEntity<User> insert(@RequestBody User obj) {
+		try {
 			obj = service.insert(obj);
-			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-			return	ResponseEntity.created(uri).body(obj);
+			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId())
+					.toUri();
+			return ResponseEntity.created(uri).body(obj);
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().body(obj);
 		}
-		
-		@PutMapping(value ="/{id}")
-		public ResponseEntity<Vaccine> addVaccine(@PathVariable Long id,@RequestBody Vaccine vaccine){
-			service.addVaccine(id,vaccine);
-			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(vaccine.getId()).toUri();
-			return	ResponseEntity.created(uri).body(vaccine);
-			//return ResponseEntity.ok().body(vaccine);
+
+	}
+
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<Vaccine> addVaccine(@PathVariable Long id, @RequestBody Vaccine vaccine) {
+		try {
+			service.addVaccine(id, vaccine);
+			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(vaccine.getId())
+					.toUri();
+			return ResponseEntity.created(uri).body(vaccine);
+		} catch (RuntimeException e) {
+			return ResponseEntity.badRequest().body(vaccine);
 		}
-} 
+	}
+}

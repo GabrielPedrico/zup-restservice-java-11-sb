@@ -40,7 +40,6 @@ public class User implements Serializable {
 	private String cpf;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-	@NotBlank
 	private Instant birthDate;
 	
 	@OneToMany(mappedBy = "patient")
